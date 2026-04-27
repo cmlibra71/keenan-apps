@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Price Book (Mock Data)</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 24px; max-width: 900px; }
+    header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; }
+    h1 { margin: 0; font-size: 1.5rem; }
+    input { padding: 6px 10px; font-size: 14px; border: 1px solid #ccc; border-radius: 4px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 8px 12px; border-bottom: 1px solid #eee; text-align: left; }
+    th { font-size: 12px; text-transform: uppercase; color: #666; }
+    td.price { text-align: right; font-variant-numeric: tabular-nums; }
+    tr.discontinued td { opacity: 0.5; text-decoration: line-through; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Price Book</h1>
+    <input id="search" placeholder="Search SKU or name…">
+  </header>
+
+  <table>
+    <thead>
+      <tr>
+        <th>SKU</th>
+        <th>Name</th>
+        <th>Brand</th>
+        <th>Status</th>
+        <th style="text-align: right;">Price</th>
+      </tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
+
+  <script>
+    /**
+     * MOCK DATA — replace with Keenan.api.get("/catalog/products") when wiring up.
+     *
+     * The Keenan SDK is auto-injected by the sandbox. See ../CLAUDE.md for the
+     * full reference. Real call shape:
+     *   const { data } = await Keenan.api.get("/catalog/products", { limit: 50 });
+     *
+     * Note: real API returns snake_case fields (e.g. is_visible, retail_price).
+     */
+    const PRODUCTS = [
+      { sku: "WB-001", name: "Widget Basic",     brand: "Acme",   status: "active",       price: 12.50 },
+      { sku: "WB-002", name: "Widget Pro",       brand: "Acme",   status: "active",       price: 24.00 },
+      { sku: "WB-003", name: "Widget Elite",     brand: "Acme",   status: "active",       price: 49.99 },
+      { sku: "GZ-001", name: "Gizmo Mini",       brand: "Globex", status: "active",       price: 8.75  },
+      { sku: "GZ-002", name: "Gizmo Standard",   brand: "Globex", status: "active",       price: 17.50 },
+      { sku: "GZ-003", name: "Gizmo Deluxe",     brand: "Globex", status: "discontinued", price: 35.00 },
+      { sku: "TH-001", name: "Thingamajig Lite", brand: "Initech", status: "active",      price: 14.20 },
+      { sku: "TH-002", name: "Thingamajig Plus", brand: "Initech", status: "active",      price: 28.40 },
+    ];
+
+    function render(filter) {
+      const tbody = document.getElementById("rows");
+      tbody.innerHTML = "";
+      const f = (filter || "").toLowerCase();
+      for (const p of PRODUCTS) {
+        if (f && !p.sku.toLowerCase().includes(f) && !p.name.toLowerCase().includes(f)) continue;
+        const tr = document.createElement("tr");
+        if (p.status === "discontinued") tr.classList.add("discontinued");
+        tr.innerHTML =
+          "<td>" + p.sku + "</td>" +
+          "<td>" + p.name + "</td>" +
+          "<td>" + p.brand + "</td>" +
+          "<td>" + p.status + "</td>" +
+          '<td class="price">$' + p.price.toFixed(2) + "</td>";
+        tbody.appendChild(tr);
+      }
+    }
+
+    document.getElementById("search").addEventListener("input", (e) => render(e.target.value));
+    render();
+  </script>
+</body>
+</html>

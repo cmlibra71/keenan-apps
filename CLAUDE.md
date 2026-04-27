@@ -11,15 +11,16 @@ This repo contains apps that run in the Keenan Portal sandbox. Each top-level fo
 │   ├── keenan-design.css    # Reference design system stylesheet
 │   └── design-tokens.json   # Brand tokens (colors, spacing, typography)
 ├── docs/
-│   └── commerce-api.md      # Full Commerce API reference
-├── price-book/              # one app
-│   ├── index.html           # required entry
-│   ├── main.js
-│   └── styles.css
-├── stock-on-hand/           # another app
+│   ├── commerce-api.md      # Full Commerce API reference (4900 lines)
+│   └── agent-prompts.md     # Copy/paste prompt patterns
+├── _example-app/            # Working example wired to real data
+│   └── index.html
+├── _mock-price-book/        # Mock-data app — wire-up demo target
 │   └── index.html
 └── CLAUDE.md                # this file
 ```
+
+Folders prefixed with `_` are templates/examples — they still deploy if linked to a portal app, but the underscore signals "starting point". Real apps live at the top level with plain slug names (e.g. `price-book/`, `stock-on-hand/`).
 
 ## App Requirements
 
