@@ -1,0 +1,309 @@
+/**
+ * Keenan Design System — Reference Stylesheet
+ *
+ * Auto-injected into every sandboxed app. Apps can use these classes directly
+ * or let Claude apply them during wiring. All classes are prefixed with `kn-`
+ * to avoid collisions with app styles.
+ *
+ * Usage:
+ *   <div class="kn-card">
+ *     <h2 class="kn-heading">Title</h2>
+ *     <p class="kn-text">Content</p>
+ *     <button class="kn-btn kn-btn-primary">Action</button>
+ *   </div>
+ */
+
+/* --- CSS Custom Properties (from design-tokens.json) --- */
+
+:root {
+  --kn-brand: #C73629;
+  --kn-brand-hover: #a82d22;
+  --kn-brand-light: #fef2f2;
+  --kn-bg: #ffffff;
+  --kn-surface: #f9fafb;
+  --kn-surface-hover: #f3f4f6;
+  --kn-border: #e4e4e7;
+  --kn-border-hover: #d4d4d8;
+  --kn-text: #18181b;
+  --kn-text-secondary: #71717a;
+  --kn-text-muted: #a1a1aa;
+  --kn-success: #16a34a;
+  --kn-success-light: #f0fdf4;
+  --kn-warning: #d97706;
+  --kn-warning-light: #fffbeb;
+  --kn-error: #dc2626;
+  --kn-error-light: #fef2f2;
+  --kn-info: #2563eb;
+  --kn-info-light: #eff6ff;
+  --kn-radius: 0.5rem;
+  --kn-radius-sm: 0.375rem;
+  --kn-radius-lg: 0.75rem;
+  --kn-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --kn-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --kn-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --kn-font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --kn-font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+}
+
+/* --- Base reset (opt-in via .kn-app) --- */
+
+.kn-app {
+  font-family: var(--kn-font);
+  color: var(--kn-text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Typography --- */
+
+.kn-heading {
+  font-weight: 600;
+  color: var(--kn-text);
+  line-height: 1.25;
+}
+
+.kn-heading-xl { font-size: 1.5rem; }
+.kn-heading-lg { font-size: 1.25rem; }
+.kn-heading-md { font-size: 1.125rem; }
+.kn-heading-sm { font-size: 1rem; }
+
+.kn-text {
+  font-size: 0.875rem;
+  color: var(--kn-text);
+  line-height: 1.5;
+}
+
+.kn-text-secondary { color: var(--kn-text-secondary); }
+.kn-text-muted { color: var(--kn-text-muted); }
+.kn-text-sm { font-size: 0.75rem; }
+.kn-text-mono { font-family: var(--kn-font-mono); }
+
+/* --- Card --- */
+
+.kn-card {
+  background: var(--kn-bg);
+  border: 1px solid var(--kn-border);
+  border-radius: var(--kn-radius);
+  padding: 1.5rem;
+}
+
+.kn-card-hover:hover {
+  border-color: var(--kn-border-hover);
+  box-shadow: var(--kn-shadow-sm);
+}
+
+/* --- Buttons --- */
+
+.kn-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25;
+  border-radius: var(--kn-radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 150ms, border-color 150ms, color 150ms;
+}
+
+.kn-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.kn-btn-primary {
+  background: var(--kn-brand);
+  color: #fff;
+}
+.kn-btn-primary:hover:not(:disabled) {
+  background: var(--kn-brand-hover);
+}
+
+.kn-btn-secondary {
+  background: var(--kn-bg);
+  color: var(--kn-text);
+  border-color: var(--kn-border);
+}
+.kn-btn-secondary:hover:not(:disabled) {
+  background: var(--kn-surface);
+  border-color: var(--kn-border-hover);
+}
+
+.kn-btn-ghost {
+  background: transparent;
+  color: var(--kn-text-secondary);
+}
+.kn-btn-ghost:hover:not(:disabled) {
+  background: var(--kn-surface);
+  color: var(--kn-text);
+}
+
+.kn-btn-danger {
+  background: var(--kn-error);
+  color: #fff;
+}
+.kn-btn-danger:hover:not(:disabled) {
+  background: #b91c1c;
+}
+
+.kn-btn-sm {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.75rem;
+}
+
+.kn-btn-lg {
+  padding: 0.625rem 1.25rem;
+  font-size: 1rem;
+}
+
+/* --- Input --- */
+
+.kn-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--kn-text);
+  background: var(--kn-bg);
+  border: 1px solid var(--kn-border);
+  border-radius: var(--kn-radius);
+  outline: none;
+  transition: border-color 150ms;
+}
+
+.kn-input:focus {
+  border-color: var(--kn-brand);
+  box-shadow: 0 0 0 3px rgba(199, 54, 41, 0.1);
+}
+
+.kn-input::placeholder {
+  color: var(--kn-text-muted);
+}
+
+.kn-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--kn-text);
+  margin-bottom: 0.375rem;
+}
+
+/* --- Table --- */
+
+.kn-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.kn-table th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--kn-text-secondary);
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--kn-border);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.kn-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--kn-border);
+  color: var(--kn-text);
+}
+
+.kn-table tr:hover td {
+  background: var(--kn-surface);
+}
+
+/* --- Badge --- */
+
+.kn-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 9999px;
+  line-height: 1.5;
+}
+
+.kn-badge-default {
+  background: var(--kn-surface);
+  color: var(--kn-text-secondary);
+}
+
+.kn-badge-success {
+  background: var(--kn-success-light);
+  color: var(--kn-success);
+}
+
+.kn-badge-warning {
+  background: var(--kn-warning-light);
+  color: var(--kn-warning);
+}
+
+.kn-badge-error {
+  background: var(--kn-error-light);
+  color: var(--kn-error);
+}
+
+.kn-badge-info {
+  background: var(--kn-info-light);
+  color: var(--kn-info);
+}
+
+/* --- Alert --- */
+
+.kn-alert {
+  padding: 0.75rem 1rem;
+  border-radius: var(--kn-radius);
+  font-size: 0.875rem;
+  border: 1px solid;
+}
+
+.kn-alert-success {
+  background: var(--kn-success-light);
+  border-color: #bbf7d0;
+  color: #166534;
+}
+
+.kn-alert-warning {
+  background: var(--kn-warning-light);
+  border-color: #fde68a;
+  color: #92400e;
+}
+
+.kn-alert-error {
+  background: var(--kn-error-light);
+  border-color: #fecaca;
+  color: #991b1b;
+}
+
+.kn-alert-info {
+  background: var(--kn-info-light);
+  border-color: #bfdbfe;
+  color: #1e40af;
+}
+
+/* --- Utilities --- */
+
+.kn-flex { display: flex; }
+.kn-flex-col { flex-direction: column; }
+.kn-items-center { align-items: center; }
+.kn-justify-between { justify-content: space-between; }
+.kn-gap-1 { gap: 0.25rem; }
+.kn-gap-2 { gap: 0.5rem; }
+.kn-gap-3 { gap: 0.75rem; }
+.kn-gap-4 { gap: 1rem; }
+.kn-p-4 { padding: 1rem; }
+.kn-p-6 { padding: 1.5rem; }
+.kn-mt-2 { margin-top: 0.5rem; }
+.kn-mt-4 { margin-top: 1rem; }
+.kn-mb-4 { margin-bottom: 1rem; }
+.kn-w-full { width: 100%; }
+.kn-truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

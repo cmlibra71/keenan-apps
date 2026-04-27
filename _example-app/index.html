@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Example App</title>
+</head>
+<body class="kn-app">
+  <main class="kn-card kn-mb-4" style="margin: 1.5rem; max-width: 720px;">
+    <div class="kn-flex kn-items-center kn-justify-between kn-mb-4">
+      <h1 class="kn-heading kn-heading-lg">Products</h1>
+      <span id="user" class="kn-text kn-text-secondary">…</span>
+    </div>
+
+    <div id="status" class="kn-alert kn-alert-info kn-mb-4">Connecting…</div>
+
+    <table class="kn-table">
+      <thead>
+        <tr>
+          <th>SKU</th>
+          <th>Name</th>
+          <th style="text-align: right;">Price</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </main>
+
+  <script>
+    /**
+     * Example app — wired to live Commerce data via the Keenan SDK.
+     *
+     * The SDK (window.Keenan) and the design system stylesheet are auto-injected
+     * by the sandbox. No bundle, no install, no fetch boilerplate.
+     */
+    Keenan.ready
+      .then(async () => {
+        document.getElementById("user").textContent =
+          Keenan.context.userName || Keenan.context.userEmail || "Signed in";
+
+        const { data } = await Keenan.api.get("/catalog/products", { limit: 20 });
+        const rows = document.getElementById("rows");
+        for (const p of data) {
+          const tr = document.createElement("tr");
+          tr.innerHTML =
+            '<td class="kn-text-mono">' + (p.sku || "—") + "</td>" +
+            "<td>" + p.name + "</td>" +
+            '<td style="text-align: right;">$' +
+            Number(p.price ?? 0).toFixed(2) + "</td>";
+          rows.appendChild(tr);
+        }
+        const status = document.getElementById("status");
+        status.className = "kn-alert kn-alert-success kn-mb-4";
+        status.textContent = "Showing " + data.length + " products";
+      })
+      .catch((err) => {
+        const status = document.getElementById("status");
+        status.className = "kn-alert kn-alert-error kn-mb-4";
+        status.textContent =
+          "Failed to load: " + (err.message || "unknown error") +
+          (err.status === 403 ? " (check the app's Keenan Services scopes)" : "");
+      });
+  </script>
+</body>
+</html>
